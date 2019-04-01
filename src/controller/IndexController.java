@@ -52,7 +52,7 @@ public class IndexController {
 
 	/**
 	 * @name joinUser \n
-	 * @brief Go to main index \n
+	 * @brief 유저 회원가입 기능의 함수이다. \n
 	 * @param User user \n
 	 * @return String \n
 	 * @author park \n
