@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="day">
+
+	<insert id="insertDay" parameterType="Day">
+		Insert into Days(NO,CONTENT,DAY,REGDATE,STORE_NO)
+		values (days_seq.nextval,#{content},#{day},systimestamp,#{storeNo})
+	</insert>
+
+	<select id="selectList" resultType="Day" parameterType="int">
+		Select no , content , day
+		From days
+		Where store_no = #{no}
+		Order by day asc
+	</select>
+
+	<delete id="deleteDay" parameterType="int">
+		Delete days 
+		Where no = #{no}
+	</delete>
+	
+	
+	
+	
+</mapper>
+

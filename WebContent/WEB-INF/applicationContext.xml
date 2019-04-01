@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<aop:aspectj-autoproxy />
+
+	<tx:annotation-driven />
+
+	<jee:jndi-lookup id="dataSource"
+		jndi-name="java:comp/env/oraclexe" />
+
+	<bean id="transactionManager" p:dataSource-ref="dataSource"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager" />
+
+	<bean id="sqlSessionFactory" p:dataSource-ref="dataSource"
+		p:configLocation="WEB-INF/mybatis-config.xml"
+		class="org.mybatis.spring.SqlSessionFactoryBean" />
+
+	<bean id="sqlSession" c:sqlSessionFactory-ref="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionTemplate" />
+
+	<!-- DAO -->
+	<bean id="userDAO" p:session-ref="sqlSession"
+		class="dao.UserDAOImpl" />
+	<bean id="phoneDAO" p:session-ref="sqlSession"
+		class="dao.PhoneDAOImpl" />
+	<bean id="dayDAO" p:session-ref="sqlSession"
+		class="dao.DayDAOImpl" />
+	<bean id="managementDAO" p:session-ref="sqlSession"
+		class="dao.ManagementImpl" />
+
+	<!-- service -->
+	<bean id="userService" p:userDAO-ref="userDAO"
+		p:managementDAO-ref="managementDAO"
+		p:dayDAO-ref="dayDAO" class="service.UserServiceImpl" />
+
+	<bean id="phoneService" p:phoneDAO-ref="phoneDAO"
+		class="service.PhoneServiceImpl" />
+
+	<bean id="magaementService" p:managementDAO-ref="managementDAO"
+		class="service.ManagementServiceImpl" />
+	
+	<bean id="dayService" p:dayDAO-ref="dayDAO" class="service.DayServiceImpl" />
+		
+</beans>

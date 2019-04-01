@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="management">
+
+	<insert id="insertCass" parameterType="Management">
+		insert into
+		management(NO,TYPE,NUM,UPDATEDAY,REGDATE,STORE_NO)
+		values(management_seq.nextval,
+		<if test="types !=null">
+		#{type}
+		</if>
+		,0,sysdate,systimestamp,#{storeNo})
+	</insert>
+	
+	<select id="selectList" resultType="Management" parameterType="int">
+		select no ,type , num ,updateday updateDay
+		from management
+		where store_no = #{storeNo}
+	</select>
+	
+	<select id="selectOne" resultType="int" parameterType="Management">
+		<if test="type!=null">
+		select  num 
+		from management
+		where store_no = #{storeNo}
+		And type = #{type}
+		</if>
+	</select>
+	
+	
+	<update id="updateManagement" parameterType="Management">
+		<if test="type!=null">
+			Update management
+			Set num = #{num} , 
+			updateday = systimestamp
+			Where store_no = #{storeNo}	
+			And type = #{type}
+		</if>
+	</update>
+
+</mapper>
+
