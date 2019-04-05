@@ -37,12 +37,12 @@
 		</mvc:interceptors> -->
 
 	<!-- Controller -->
-	<bean id="indexController" p:userService-ref="userService"
+	<bean id="storenagerController" p:userService-ref="userService"
 		p:magaementService-ref="magaementService"
 		p:dayService-ref="dayService" p:phoneService-ref="phoneService"
-		class="controller.IndexController" />
-		
-		
+		class="controller.StorenagerController" />
+	<bean id="mainController" class="controller.MainController" />
+	
 	<!-- 모델이 필요없는 인터널리소스뷰 -->
 
 	<!-- MultipartResovler -->

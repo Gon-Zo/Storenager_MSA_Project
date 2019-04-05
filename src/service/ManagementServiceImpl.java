@@ -45,7 +45,10 @@ public class ManagementServiceImpl implements MagaementService {
 	public Boolean updateManagement(Management management) {
 		// TODO Auto-generated method stub
 		int num = management.getNum();
-		management.setNum( management.getState().equals("P") ? num + managementDAO.selectOne(management) : managementDAO.selectOne(management) - num );
+		management.setNum( 
+				management.getState().equals("P") ? 
+							num + managementDAO.selectOne(management) : managementDAO.selectOne(management) - num
+								);
 		return managementDAO.updateManagement(management) == 1 ? true : false;
 	}
 	

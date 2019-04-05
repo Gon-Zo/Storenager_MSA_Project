@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import service.DayService;
 import service.MagaementService;
@@ -17,6 +18,7 @@ import service.UserService;
 import vo.Day;
 import vo.Management;
 import vo.Phone;
+import vo.ResultVO;
 import vo.User;
 
 /**
@@ -25,8 +27,8 @@ import vo.User;
  * @author park
  * @version 1.0
  */
-@Controller
-public class IndexController {
+@RestController
+public class StorenagerController {
 
 	private UserService userService;
 	private PhoneService phoneService;
@@ -59,10 +61,9 @@ public class IndexController {
 	 * @version 1.0 \n
 	 * @see None \n
 	 */
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	@ResponseBody
-	public String joinUser(User user) {
-		return "{\"result\":" + userService.joinUser(user) + "}";
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public ResultVO joinUser(User user) {
+		return new ResultVO(userService.joinUser(user));
 	}// joinUser end
 
 	/**
@@ -75,18 +76,18 @@ public class IndexController {
 	 * @version 1.0 \n
 	 * @see None \n
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	@ResponseBody
-	public String login(User user, HttpSession session) {
-		int check = 0;
-		User loginUser = userService.login(user);
-		if (loginUser != null) {
-			session.setAttribute("login", loginUser);
-			session.setAttribute("no", loginUser.getNo());
-			check = 1;
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ResultVO login(User user, HttpSession session) {
+		Boolean check = false;
+		try {
+			session.setAttribute("login", userService.login(user));
+			session.setAttribute("no", userService.login(user).getNo());
+			check = true;
 			this.session = session;
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		return "{\"result\":" + check + "}";
+		return new ResultVO(check);
 	}
 
 	/**
@@ -98,7 +99,6 @@ public class IndexController {
 	 * @see None \n
 	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	@ResponseBody
 	public User profile() {
 		return (User) session.getAttribute("login");
 	}
@@ -112,7 +112,6 @@ public class IndexController {
 	 * @see None \n
 	 */
 	@RequestMapping(value = "/management/list", method = RequestMethod.GET)
-	@ResponseBody
 	public List<Management> managementList() {
 		return magaementService.selectManagement((int) session.getAttribute("no"));
 	}
@@ -127,10 +126,9 @@ public class IndexController {
 	 * @see None \n
 	 */
 	@RequestMapping(value = "/management/update", method = RequestMethod.GET)
-	@ResponseBody
-	public String updateManagement(Management management) {
+	public ResultVO updateManagement(Management management) {
 		management.setStoreNo((int) session.getAttribute("no"));
-		return "{\"result\":" + magaementService.updateManagement(management) + "}";
+		return new ResultVO(magaementService.updateManagement(management));
 	}
 
 	/**
@@ -143,10 +141,9 @@ public class IndexController {
 	 * @see None \n
 	 */
 	@RequestMapping(value = "/phone/write", method = RequestMethod.GET)
-	@ResponseBody
-	public String writePhone(Phone phone) {
+	public ResultVO writePhone(Phone phone) {
 		phone.setStoreNo((int) session.getAttribute("no"));
-		return "{\"result\":" + phoneService.writePhone(phone) + "}";
+		return new ResultVO(phoneService.writePhone(phone));
 	}
 
 	/**
@@ -158,7 +155,6 @@ public class IndexController {
 	 * @see None \n
 	 */
 	@RequestMapping(value = "/phone/list", method = RequestMethod.GET)
-	@ResponseBody
 	public List<Phone> listPhone() {
 		return phoneService.phoneBooks((int) session.getAttribute("no"));
 	}
@@ -173,9 +169,8 @@ public class IndexController {
 	 * @see None \n
 	 */
 	@RequestMapping(value = "/phone/delete/{no}", method = RequestMethod.GET)
-	@ResponseBody
-	public String deletePhone(@PathVariable int no) {
-		return "{\"result\":" + phoneService.removePhone(no) + "}";
+	public ResultVO deletePhone(@PathVariable int no) {
+		return new ResultVO(phoneService.removePhone(no));
 	}
 
 	/**
@@ -188,10 +183,9 @@ public class IndexController {
 	 * @see None \n
 	 */
 	@RequestMapping(value = "/day/write", method = RequestMethod.GET)
-	@ResponseBody
-	public String writeDay(Day day) {
+	public ResultVO writeDay(Day day) {
 		day.setStoreNo((int) session.getAttribute("no"));
-		return "{\"result\":" + dayService.writeDay(day) + "}";
+		return new ResultVO(dayService.writeDay(day));
 	}
 
 	/**
@@ -203,7 +197,6 @@ public class IndexController {
 	 * @see None \n
 	 */
 	@RequestMapping(value = "/day/list", method = RequestMethod.GET)
-	@ResponseBody
 	public List<Day> listDay() {
 		return dayService.listDay((int) session.getAttribute("no"));
 	}
@@ -218,9 +211,8 @@ public class IndexController {
 	 * @see None \n
 	 */
 	@RequestMapping(value = "/day/delete/{no}", method = RequestMethod.GET)
-	@ResponseBody
-	public String removeDay(@PathVariable int no) {
-		return "{\"result\":" + dayService.removeDay(no) + "}";
+	public ResultVO removeDay(@PathVariable int no) {
+		return new ResultVO(dayService.removeDay(no));
 	}
 	
 }// IndexController end

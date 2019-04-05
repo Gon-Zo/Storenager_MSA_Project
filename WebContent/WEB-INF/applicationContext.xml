@@ -41,7 +41,7 @@
 	<!-- service -->
 	<bean id="userService" p:userDAO-ref="userDAO"
 		p:managementDAO-ref="managementDAO"
-		p:dayDAO-ref="dayDAO" class="service.UserServiceImpl" />
+		class="service.UserServiceImpl" />
 
 	<bean id="phoneService" p:phoneDAO-ref="phoneDAO"
 		class="service.PhoneServiceImpl" />
