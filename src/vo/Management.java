@@ -26,7 +26,10 @@ public class Management {
 		// TODO Auto-generated constructor stub
 		this.storeNo = storeNo;
 	}
-
+	public Management(String type) {
+		// TODO Auto-generated constructor stub
+		this.type = type;
+	}
 	public String getState() {
 		return state;
 	}
@@ -70,8 +73,12 @@ public class Management {
 	public String getType() {
 		return type;
 	}
-
+	
 	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public void setType2(String type) {
 		switch (type) {
 		case "카스":
 			this.type = "C";

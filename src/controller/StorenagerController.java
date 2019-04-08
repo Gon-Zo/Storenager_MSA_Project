@@ -61,7 +61,7 @@ public class StorenagerController {
 	 * @version 1.0 \n
 	 * @see None \n
 	 */
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public ResultVO joinUser(User user) {
 		return new ResultVO(userService.joinUser(user));
 	}// joinUser end
@@ -76,7 +76,7 @@ public class StorenagerController {
 	 * @version 1.0 \n
 	 * @see None \n
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResultVO login(User user, HttpSession session) {
 		Boolean check = false;
 		try {
@@ -98,7 +98,7 @@ public class StorenagerController {
 	 * @version 1.0 \n
 	 * @see None \n
 	 */
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public User profile() {
 		return (User) session.getAttribute("login");
 	}
