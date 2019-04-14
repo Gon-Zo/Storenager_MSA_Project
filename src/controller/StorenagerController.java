@@ -4,11 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import service.DayService;
@@ -69,7 +67,7 @@ public class StorenagerController {
 	/**
 	 * @name joinUser \n
 	 * @brief 로그인 기능의 함수. \n
-	 * @param User user \n
+	 * @param User        user \n
 	 * @param HttpSession session \n
 	 * @return String \n
 	 * @author park \n
@@ -84,7 +82,7 @@ public class StorenagerController {
 			session.setAttribute("no", userService.login(user).getNo());
 			check = true;
 			this.session = session;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return new ResultVO(check);
@@ -214,5 +212,5 @@ public class StorenagerController {
 	public ResultVO removeDay(@PathVariable int no) {
 		return new ResultVO(dayService.removeDay(no));
 	}
-	
+
 }// IndexController end

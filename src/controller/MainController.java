@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MainController {
-	
-	@RequestMapping(value= {"/","main"},method=RequestMethod.GET)
+
+	@RequestMapping(value = { "/", "main" }, method = RequestMethod.GET)
 	public String main() {
 		System.out.println("start ==> server ");
+		System.out.println("tset server start !!")
 		return "main";
 	}
 }

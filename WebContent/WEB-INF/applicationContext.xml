@@ -40,15 +40,15 @@
 
 	<!-- service -->
 	<bean id="userService" p:userDAO-ref="userDAO"
-		p:managementDAO-ref="managementDAO"
-		class="service.UserServiceImpl" />
+		p:managementDAO-ref="managementDAO" class="service.UserServiceImpl" />
 
 	<bean id="phoneService" p:phoneDAO-ref="phoneDAO"
 		class="service.PhoneServiceImpl" />
 
 	<bean id="magaementService" p:managementDAO-ref="managementDAO"
 		class="service.ManagementServiceImpl" />
-	
-	<bean id="dayService" p:dayDAO-ref="dayDAO" class="service.DayServiceImpl" />
-		
+
+	<bean id="dayService" p:dayDAO-ref="dayDAO"
+		class="service.DayServiceImpl" />
+
 </beans>
