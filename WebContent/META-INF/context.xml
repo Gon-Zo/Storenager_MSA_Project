@@ -4,7 +4,7 @@
 		name="oraclexe"
 		auth="Container"
 		driverClassName= "oracle.jdbc.OracleDriver"
-		url="jdbc:oracle:thin:@localhost:1521:xe"
+		url="jdbc:oracle:thin:@172.31.6.181:1521:xe"
 		username="store"
 		password="1111"
 		type="javax.sql.DataSource"

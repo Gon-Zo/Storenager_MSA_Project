@@ -8,6 +8,7 @@ package vo;
  */
 public class ResultVO {
 	public Boolean result;
+	public String imgUrl;
 
 	public ResultVO() {
 		// TODO Auto-generated constructor stub
@@ -16,6 +17,19 @@ public class ResultVO {
 	public ResultVO(Boolean result) {
 		// TODO Auto-generated constructor stub
 		this.result = result;
+	}
+
+	public ResultVO(String imgUrl) {
+		// TODO Auto-generated constructor stub
+		this.imgUrl = imgUrl;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 
 	public Boolean getResult() {
